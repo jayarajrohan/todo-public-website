@@ -6,7 +6,7 @@ import styles from "./app-input.module.scss";
 interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
   labelText?: string;
   labelFor?: string;
-  error: FieldError | undefined;
+  error?: FieldError | undefined;
   register?: UseFormRegisterReturn;
   rowClassName?: string;
 }

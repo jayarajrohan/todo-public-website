@@ -1,6 +1,6 @@
 import React from "react";
 import { Col, Row } from "react-bootstrap";
-import styles from "./app-button.module.scss";
+import styles from "./app-secondary-button.module.scss";
 
 interface IProps
   extends React.DetailedHTMLProps<
@@ -11,15 +11,15 @@ interface IProps
   rowClassName?: string;
 }
 
-function AppButton(props: IProps) {
+function AppSecondaryButton(props: IProps) {
   const { text, rowClassName, onClick, ...rest } = props;
 
   return (
     <Row className={rowClassName}>
       <Col>
         <button
-          className={`bg-primary font-weight-500 font-size-18 text-white px-4 py-2 rounded-pill 
-          primary-hover text-center cursor-pointer w-100 ${styles.appButton}`}
+          className={`bg-white font-weight-500 font-size-18 text-primary px-4 py-2 rounded-pill 
+          secondary-hover text-center cursor-pointer w-100 ${styles.appSecondaryButton}`}
           onClick={onClick}
           {...rest}
         >
@@ -30,4 +30,4 @@ function AppButton(props: IProps) {
   );
 }
 
-export default AppButton;
+export default AppSecondaryButton;

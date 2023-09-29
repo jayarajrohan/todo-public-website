@@ -1,7 +1,12 @@
-import SignUp from "./components/sign-up/sign-up";
+import { Container } from "react-bootstrap";
+import Todo from "./components/todo/todo";
 
 function App() {
-  return <SignUp />;
+  return (
+    <Container fluid>
+      <Todo />
+    </Container>
+  );
 }
 
 export default App;

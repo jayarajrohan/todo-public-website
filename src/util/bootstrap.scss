@@ -1,3 +1,5 @@
-$primary: #8803fc;
-
+$theme-colors: (
+  "primary": #8803fc,
+  "red": #ff0000,
+);
 @import "~bootstrap/scss/bootstrap";
