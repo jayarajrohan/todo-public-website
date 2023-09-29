@@ -13,7 +13,12 @@ function Todo() {
 
   return (
     <>
-      <Row className={`align-items-center justify-content-center mt-4`}>
+      <Row className="mt-4 justify-content-end px-5">
+        <Col xs={5} sm={4} xl={2}>
+          <AppButton text="Logout" />
+        </Col>
+      </Row>
+      <Row className={`mt-5 align-items-center justify-content-center mt-4`}>
         <Col xs={12} sm={10} lg={8}>
           <Row className="align-items-center">
             <Col className="px-sm-0">

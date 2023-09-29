@@ -23,10 +23,11 @@ function AppInput(props: IProps) {
     required,
     ...rest
   } = props;
+
   return (
     <Row className={`flex-column ${rowClassName || ""}`}>
       {labelText && (
-        <Col className="font-weight-500">
+        <Col className="font-size-18 font-weight-500">
           <label htmlFor={labelFor}>
             {labelText}
             {required && <span className="text-danger font-size-18">*</span>}
@@ -38,7 +39,7 @@ function AppInput(props: IProps) {
           id={labelFor}
           className={`${className} ${styles.appInput} ${
             error ? styles.error : styles.normal
-          } rounded w-100`}
+          } font-size-20 rounded w-100`}
           {...rest}
           type={type || "text"}
           {...register}

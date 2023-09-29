@@ -1,10 +1,10 @@
 import { Container } from "react-bootstrap";
-import Todo from "./components/todo/todo";
+import AppRoutes from "./routes/routes";
 
 function App() {
   return (
     <Container fluid>
-      <Todo />
+      <AppRoutes />
     </Container>
   );
 }
