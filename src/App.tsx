@@ -1,7 +1,7 @@
-import { Container } from "react-bootstrap";
+import SignUp from "./components/sign-up/sign-up";
 
 function App() {
-  return <Container fluid></Container>;
+  return <SignUp />;
 }
 
 export default App;

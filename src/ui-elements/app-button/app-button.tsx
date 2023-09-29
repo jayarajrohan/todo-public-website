@@ -1,21 +1,30 @@
+import React from "react";
 import { Col, Row } from "react-bootstrap";
+import styles from "./app-button.module.scss";
 
-interface IProps {
-  onClick: () => void;
+interface IProps
+  extends React.DetailedHTMLProps<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    HTMLButtonElement
+  > {
   text: string;
+  rowClassName?: string;
 }
 
 function AppButton(props: IProps) {
-  const { onClick, text } = props;
+  const { text, rowClassName, onClick, ...rest } = props;
 
   return (
-    <Row>
-      <Col
-        className={`bg-primary text-white px-4 py-2 
-        rounded-pill primary-hover text-center cursor-pointer`}
-        onClick={onClick}
-      >
-        {text}
+    <Row className={rowClassName}>
+      <Col>
+        <button
+          className={`bg-primary text-white px-4 py-2 rounded-pill 
+          primary-hover text-center cursor-pointer w-100 ${styles.appButton}`}
+          onClick={onClick}
+          {...rest}
+        >
+          {text}
+        </button>
       </Col>
     </Row>
   );
