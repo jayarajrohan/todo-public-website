@@ -1,12 +1,15 @@
 import { useRef } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import AppButton from "../../ui-elements/app-button/app-button";
 import AppInput from "../../ui-elements/app-input/app-input";
+import { API_URL } from "../../util/api";
 import {
   emailRegex,
   noSpecialCharsNoWhiteSpacesAtTheStartAndAtTheEndRegex,
   passwordRegex,
 } from "../../util/regex";
+import { showErrorToast, showSuccessToast } from "../../util/toast";
 import FormLayout from "../form-layout/form-layout";
 
 interface IFormInput {
@@ -35,11 +38,43 @@ function SignUp() {
     defaultValues: { ...defaultFormValues },
   });
 
+  const navigate = useNavigate();
   const password = useRef({});
   password.current = watch("password", "");
 
   const onSubmit = (data: IFormInput) => {
-    console.log(data);
+    let status: number;
+
+    fetch(`${API_URL}/user/signUp`, {
+      method: "POST",
+      body: JSON.stringify({
+        email: data.email,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        password: data.password,
+      }),
+      headers: {
+        "Content-Type": "application/JSON",
+      },
+    })
+      .then((res) => {
+        status = res.status;
+        return res.json();
+      })
+      .then(() => {
+        if (status === 201) {
+          showSuccessToast("Account created successfully");
+          navigate("/");
+        } else if (status === 422) {
+          showErrorToast("Validations failed! Please check your inputs");
+        } else {
+          showErrorToast("Something went wrong! Please try again later");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        showErrorToast("Something went wrong! Please try again later");
+      });
   };
 
   return (
@@ -118,14 +153,10 @@ function SignUp() {
               value: 6,
               message: "Password must contain at least 6 characters",
             },
-            maxLength: {
-              value: 20,
-              message: "Password must contain less than 20 characters",
-            },
             pattern: {
               value: passwordRegex,
               message:
-                "Password must have 6-20 characters and include at least one lowercase letter, one uppercase letter, one numeric and one special character",
+                "Password must have 6 characters and include at least one lowercase letter, one uppercase letter, one numeric and one special character",
             },
           })}
           rowClassName="mt-3"
