@@ -8,12 +8,28 @@ interface IProps {
   content: string;
   date: Date;
   isCompleted: boolean;
-  sendActiveStatus: (id: string, isCompleted: boolean) => void;
+  sendActiveStatus: (
+    id: string,
+    content: string,
+    date: Date,
+    isCompleted: boolean
+  ) => void;
   className?: string;
+  onEditClick: () => void;
+  onDeleteClick: () => void;
 }
 
 function TodoCard(props: IProps) {
-  const { id, content, date, isCompleted, className, sendActiveStatus } = props;
+  const {
+    id,
+    content,
+    date,
+    isCompleted,
+    className,
+    onEditClick,
+    onDeleteClick,
+    sendActiveStatus,
+  } = props;
 
   return (
     <Row
@@ -39,7 +55,7 @@ function TodoCard(props: IProps) {
             <div
               className={`${styles.checkBoxDiv} ${styles.checkBoxDivSelected}`}
               onClick={() => {
-                sendActiveStatus(id, !isCompleted);
+                sendActiveStatus(id, content, date, !isCompleted);
               }}
             >
               <span
@@ -58,10 +74,10 @@ function TodoCard(props: IProps) {
       <Col className="mt-4">
         <Row className="align-items-center justify-content-end">
           <Col xs={5} sm={4} xl={2}>
-            <AppSecondaryButton text="Edit" />
+            <AppSecondaryButton text="Edit" onClick={onEditClick} />
           </Col>
           <Col xs={5} sm={4} xl={2}>
-            <AppSecondaryButton text="Delete" />
+            <AppSecondaryButton text="Delete" onClick={onDeleteClick} />
           </Col>
         </Row>
       </Col>

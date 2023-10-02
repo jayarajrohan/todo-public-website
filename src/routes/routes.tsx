@@ -6,9 +6,9 @@ import Todo from "../components/todo/todo";
 function AppRoutes() {
   return (
     <Routes>
-      <Route element={<Login />} path="/" />
+      <Route element={<Todo />} path="/" />
       <Route element={<SignUp />} path="/sign-up" />
-      <Route element={<Todo />} path="/todo" />
+      <Route element={<Login />} path="/login" />
     </Routes>
   );
 }

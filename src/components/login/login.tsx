@@ -49,7 +49,7 @@ function Login() {
       .then((data) => {
         if (status === 200) {
           showSuccessToast("Login successful");
-          navigate("/todo");
+          navigate("/");
         } else if (status === 422) {
           showErrorToast("Validations failed! Please check your inputs");
         } else {
