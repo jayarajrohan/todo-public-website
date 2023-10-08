@@ -6,7 +6,6 @@ import ITodo from "../../interfaces/todo";
 import LogoutModal from "../../logout/logout-modal";
 import AppButton from "../../ui-elements/app-button/app-button";
 import AppSwitch from "../../ui-elements/app-switch/app-switch";
-import { API_URL } from "../../util/api";
 import AddUpdateTodoModal from "../add-update-todo-modal/add-update-todo-modal";
 import TodoCard from "../todo-card/todo-card";
 import TodoDeleteModal from "../todo-delete-modal/todo-delete-modal";
@@ -26,7 +25,7 @@ function Todo() {
   const [isTodoUpdated, setIsTodoUpdated] = useState(false);
 
   useEffect(() => {
-    fetch(`${API_URL}/todo/all`, {
+    fetch(`${process.env.REACT_APP_API_URL}/todo/all`, {
       method: "GET",
       credentials: "include",
     })

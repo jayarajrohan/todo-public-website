@@ -1,7 +1,6 @@
 import { Col, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import ModalContainer from "../ui-elements/modal-container/modal-container";
-import { API_URL } from "../util/api";
 import { showErrorToast, showSuccessToast } from "../util/toast";
 
 interface IProps {
@@ -23,7 +22,7 @@ function LogoutModal(props: IProps) {
       onConfirm={() => {
         let status: number;
 
-        fetch(`${API_URL}/user/logout`, {
+        fetch(`${process.env.REACT_APP_API_URL}/user/logout`, {
           method: "GET",
           credentials: "include",
         })

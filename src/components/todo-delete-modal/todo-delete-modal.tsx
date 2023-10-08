@@ -1,6 +1,5 @@
 import { Col, Row } from "react-bootstrap";
 import ModalContainer from "../../ui-elements/modal-container/modal-container";
-import { API_URL } from "../../util/api";
 import { showErrorToast, showSuccessToast } from "../../util/toast";
 
 interface IProps {
@@ -23,7 +22,7 @@ function TodoDeleteModal(props: IProps) {
       onConfirm={() => {
         let status: number;
 
-        fetch(`${API_URL}/todo/delete/${id}`, {
+        fetch(`${process.env.REACT_APP_API_URL}/todo/delete/${id}`, {
           credentials: "include",
           method: "DELETE",
           headers: {

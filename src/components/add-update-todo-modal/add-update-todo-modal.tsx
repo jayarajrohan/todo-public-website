@@ -6,7 +6,6 @@ import ITodo from "../../interfaces/todo";
 import AppInput from "../../ui-elements/app-input/app-input";
 import AppSelect from "../../ui-elements/app-select/app-select";
 import ModalContainer from "../../ui-elements/modal-container/modal-container";
-import { API_URL } from "../../util/api";
 import { showErrorToast, showSuccessToast } from "../../util/toast";
 
 interface IFormInput {
@@ -56,7 +55,7 @@ function AddUpdateTodoModal(props: IProps) {
     if (!isEdit) {
       let status: number;
 
-      fetch(`${API_URL}/todo/add`, {
+      fetch(`${process.env.REACT_APP_API_URL}/todo/add`, {
         credentials: "include",
         method: "POST",
         body: JSON.stringify({
@@ -91,7 +90,7 @@ function AddUpdateTodoModal(props: IProps) {
     } else {
       let status: number;
 
-      fetch(`${API_URL}/todo/update/${todo?._id}`, {
+      fetch(`${process.env.REACT_APP_API_URL}/todo/update/${todo?._id}`, {
         credentials: "include",
         method: "PUT",
         body: JSON.stringify({

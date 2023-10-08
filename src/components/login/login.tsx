@@ -2,7 +2,6 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import AppButton from "../../ui-elements/app-button/app-button";
 import AppInput from "../../ui-elements/app-input/app-input";
-import { API_URL } from "../../util/api";
 import { emailRegex, passwordRegex } from "../../util/regex";
 import { showErrorToast, showSuccessToast } from "../../util/toast";
 import FormLayout from "../form-layout/form-layout";
@@ -31,7 +30,7 @@ function Login() {
   const onSubmit = (data: IFormInput) => {
     let status: number;
 
-    fetch(`${API_URL}/user/login`, {
+    fetch(`${process.env.REACT_APP_API_URL}/user/login`, {
       credentials: "include",
       method: "POST",
       body: JSON.stringify({

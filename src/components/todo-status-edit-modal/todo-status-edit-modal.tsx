@@ -1,7 +1,6 @@
 import { Col, Row } from "react-bootstrap";
 import ITodo from "../../interfaces/todo";
 import ModalContainer from "../../ui-elements/modal-container/modal-container";
-import { API_URL } from "../../util/api";
 import { showErrorToast, showSuccessToast } from "../../util/toast";
 
 interface IProps {
@@ -24,7 +23,7 @@ function TodoStatusEditModal(props: IProps) {
       onConfirm={() => {
         let status: number;
 
-        fetch(`${API_URL}/todo/update/${todo?._id}`, {
+        fetch(`${process.env.REACT_APP_API_URL}/todo/update/${todo?._id}`, {
           credentials: "include",
           method: "PUT",
           body: JSON.stringify({
