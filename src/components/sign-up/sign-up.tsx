@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import AppButton from "../../ui-elements/app-button/app-button";
@@ -9,7 +9,7 @@ import {
   passwordRegex,
 } from "../../util/regex";
 import { showErrorToast, showSuccessToast } from "../../util/toast";
-import FormLayout from "../form-layout/form-layout";
+import LoaderModal from "../loader-modal/loader-modal";
 
 interface IFormInput {
   firstName: string;
@@ -28,6 +28,7 @@ const defaultFormValues: IFormInput = {
 };
 
 function SignUp() {
+  const [isLoading, setIsLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -42,6 +43,7 @@ function SignUp() {
   password.current = watch("password", "");
 
   const onSubmit = (data: IFormInput) => {
+    setIsLoading(true);
     let status: number;
 
     fetch(`${process.env.REACT_APP_API_URL}/user/signUp`, {
@@ -73,11 +75,14 @@ function SignUp() {
       .catch((error) => {
         console.log(error);
         showErrorToast("Something went wrong! Please try again later");
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
   return (
-    <FormLayout>
+    <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <AppInput
           labelFor="firstName"
@@ -180,7 +185,9 @@ function SignUp() {
 
         <AppButton text="Sign Up" type="submit" rowClassName="mt-4" />
       </form>
-    </FormLayout>
+
+      <LoaderModal show={isLoading} />
+    </>
   );
 }
 

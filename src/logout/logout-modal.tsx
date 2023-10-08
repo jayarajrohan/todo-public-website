@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import ModalContainer from "../ui-elements/modal-container/modal-container";
@@ -11,6 +12,7 @@ interface IProps {
 function LogoutModal(props: IProps) {
   const navigate = useNavigate();
   const { show, setShow } = props;
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <ModalContainer
@@ -19,7 +21,9 @@ function LogoutModal(props: IProps) {
       onClose={() => {
         setShow(false);
       }}
+      isLoading={isLoading}
       onConfirm={() => {
+        setIsLoading(false);
         let status: number;
 
         fetch(`${process.env.REACT_APP_API_URL}/user/logout`, {
@@ -46,6 +50,9 @@ function LogoutModal(props: IProps) {
               navigate("/login");
               setShow(false);
             }
+          })
+          .finally(() => {
+            setIsLoading(false);
           });
       }}
     >

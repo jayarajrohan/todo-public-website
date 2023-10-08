@@ -1,4 +1,5 @@
 import { Col, Container, Row } from "react-bootstrap";
+import Spinner from "react-spinkit";
 import AppButton from "../app-button/app-button";
 import AppModal from "../app-modal/app-modal";
 
@@ -19,11 +20,12 @@ const ModalContainer = (props: ModelContainerProps) => {
     show,
     title,
     size,
-    onClose,
-    onConfirm,
     confirmButtonText,
     children,
     className,
+    isLoading,
+    onClose,
+    onConfirm,
   } = props;
 
   return (
@@ -57,7 +59,13 @@ const ModalContainer = (props: ModelContainerProps) => {
         <Row className="mt-5">
           <Col xs="auto">
             <AppButton
-              text={confirmButtonText || "Confirm"}
+              text={
+                isLoading ? (
+                  confirmButtonText || "Confirm"
+                ) : (
+                  <Spinner name="ball-beat" color="#fff" />
+                )
+              }
               onClick={onConfirm}
             />
           </Col>

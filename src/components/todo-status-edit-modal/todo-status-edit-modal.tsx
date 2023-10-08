@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import ITodo from "../../interfaces/todo";
 import ModalContainer from "../../ui-elements/modal-container/modal-container";
@@ -12,6 +13,7 @@ interface IProps {
 
 function TodoStatusEditModal(props: IProps) {
   const { todo, show, setShow, setIsTodoUpdated } = props;
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <ModalContainer
@@ -20,7 +22,9 @@ function TodoStatusEditModal(props: IProps) {
       onClose={() => {
         setShow(false);
       }}
+      isLoading={isLoading}
       onConfirm={() => {
+        setIsLoading(false);
         let status: number;
 
         fetch(`${process.env.REACT_APP_API_URL}/todo/update/${todo?._id}`, {
@@ -53,6 +57,9 @@ function TodoStatusEditModal(props: IProps) {
           .catch((error) => {
             console.log(error);
             showErrorToast("Something went wrong! Please try again later");
+          })
+          .finally(() => {
+            setIsLoading(false);
           });
       }}
     >

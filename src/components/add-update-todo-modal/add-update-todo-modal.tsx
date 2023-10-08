@@ -1,5 +1,5 @@
 import moment from "moment";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import ITodo from "../../interfaces/todo";
@@ -31,6 +31,7 @@ interface IProps {
 
 function AddUpdateTodoModal(props: IProps) {
   const { todo, isEdit, show, setShow, onModalClose, setIsTodoUpdated } = props;
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     register,
@@ -52,6 +53,7 @@ function AddUpdateTodoModal(props: IProps) {
   }, [isEdit, todo, setValue]);
 
   const onSubmit = (data: IFormInput) => {
+    setIsLoading(true);
     if (!isEdit) {
       let status: number;
 
@@ -86,6 +88,9 @@ function AddUpdateTodoModal(props: IProps) {
         .catch((error) => {
           console.log(error);
           showErrorToast("Something went wrong! Please try again later");
+        })
+        .finally(() => {
+          setIsLoading(false);
         });
     } else {
       let status: number;
@@ -121,6 +126,9 @@ function AddUpdateTodoModal(props: IProps) {
         .catch((error) => {
           console.log(error);
           showErrorToast("Something went wrong! Please try again later");
+        })
+        .finally(() => {
+          setIsLoading(false);
         });
     }
   };
@@ -135,6 +143,7 @@ function AddUpdateTodoModal(props: IProps) {
         setShow(false);
       }}
       onConfirm={handleSubmit(onSubmit)}
+      isLoading={isLoading}
     >
       <Row className="flex-column">
         <Col>

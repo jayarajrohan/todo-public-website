@@ -7,7 +7,7 @@ interface IProps
     React.ButtonHTMLAttributes<HTMLButtonElement>,
     HTMLButtonElement
   > {
-  text: string;
+  text: string | JSX.Element;
   rowClassName?: string;
 }
 
