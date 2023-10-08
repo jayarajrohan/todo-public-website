@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AppButton from "../../ui-elements/app-button/app-button";
 import AppInput from "../../ui-elements/app-input/app-input";
 import {
@@ -186,6 +186,16 @@ function SignUp() {
           />
 
           <AppButton text="Sign Up" type="submit" rowClassName="mt-4" />
+
+          <p className="mt-3 text-center">
+            Already have an account?{" "}
+            <Link
+              to="/login"
+              style={{ color: "#8803fc", textDecoration: "none" }}
+            >
+              Login
+            </Link>
+          </p>
         </form>
       </FormLayout>
 
