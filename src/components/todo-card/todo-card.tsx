@@ -4,16 +4,10 @@ import AppSecondaryButton from "../../ui-elements/app-secondary-button/app-secon
 import styles from "./todo-card.module.scss";
 
 interface IProps {
-  id: string;
   content: string;
   date: Date;
   isCompleted: boolean;
-  sendActiveStatus: (
-    id: string,
-    content: string,
-    date: Date,
-    isCompleted: boolean
-  ) => void;
+  onStatusEditClick: () => void;
   className?: string;
   onEditClick: () => void;
   onDeleteClick: () => void;
@@ -21,14 +15,13 @@ interface IProps {
 
 function TodoCard(props: IProps) {
   const {
-    id,
     content,
     date,
     isCompleted,
     className,
     onEditClick,
     onDeleteClick,
-    sendActiveStatus,
+    onStatusEditClick,
   } = props;
 
   return (
@@ -54,9 +47,7 @@ function TodoCard(props: IProps) {
           <Col className={`d-flex align-items-center col-auto`}>
             <div
               className={`${styles.checkBoxDiv} ${styles.checkBoxDivSelected}`}
-              onClick={() => {
-                sendActiveStatus(id, content, date, !isCompleted);
-              }}
+              onClick={onStatusEditClick}
             >
               <span
                 style={{
