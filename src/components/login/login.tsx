@@ -1,10 +1,11 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import AppButton from "../../ui-elements/app-button/app-button";
 import AppInput from "../../ui-elements/app-input/app-input";
 import { emailRegex, passwordRegex } from "../../util/regex";
 import { showErrorToast, showSuccessToast } from "../../util/toast";
-import FormLayout from "../form-layout/form-layout";
+import LoaderModal from "../loader-modal/loader-modal";
 
 interface IFormInput {
   email: string;
@@ -18,6 +19,7 @@ const defaultFormValues: IFormInput = {
 
 function Login() {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     register,
@@ -28,6 +30,7 @@ function Login() {
   });
 
   const onSubmit = (data: IFormInput) => {
+    setIsLoading(true);
     let status: number;
 
     fetch(`${process.env.REACT_APP_API_URL}/user/login`, {
@@ -58,11 +61,14 @@ function Login() {
       .catch((error) => {
         console.log(error);
         showErrorToast("Something went wrong! Please try again later");
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   };
 
   return (
-    <FormLayout>
+    <>
       <form onSubmit={handleSubmit(onSubmit)}>
         <AppInput
           labelFor="email"
@@ -106,7 +112,9 @@ function Login() {
 
         <AppButton text="Login" type="submit" rowClassName="mt-4" />
       </form>
-    </FormLayout>
+
+      <LoaderModal show={isLoading} />
+    </>
   );
 }
 

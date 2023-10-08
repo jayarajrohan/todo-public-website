@@ -7,6 +7,7 @@ import LogoutModal from "../../logout/logout-modal";
 import AppButton from "../../ui-elements/app-button/app-button";
 import AppSwitch from "../../ui-elements/app-switch/app-switch";
 import AddUpdateTodoModal from "../add-update-todo-modal/add-update-todo-modal";
+import LoaderModal from "../loader-modal/loader-modal";
 import TodoCard from "../todo-card/todo-card";
 import TodoDeleteModal from "../todo-delete-modal/todo-delete-modal";
 import TodoStatusEditModal from "../todo-status-edit-modal/todo-status-edit-modal";
@@ -23,8 +24,11 @@ function Todo() {
   const [isEdit, setIsEdit] = useState(false);
   const [todo, setTodo] = useState<ITodo | undefined>(undefined);
   const [isTodoUpdated, setIsTodoUpdated] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
+
     fetch(`${process.env.REACT_APP_API_URL}/todo/all`, {
       method: "GET",
       credentials: "include",
@@ -47,19 +51,26 @@ function Todo() {
           navigate("/login");
         }
         setTodos([]);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }, [status, isTodoUpdated, navigate]);
 
   return (
     <>
-      <Row className="mt-4 justify-content-end px-5">
-        <Col xs={5} sm={4} xl={2}>
-          <AppButton
-            text="Logout"
-            onClick={() => {
-              setShowLogoutModal(true);
-            }}
-          />
+      <Row className="mt-4 justify-content-center">
+        <Col xs={12} sm={10} lg={8}>
+          <Row className="justify-content-end">
+            <Col className="col-auto px-sm-0">
+              <AppButton
+                text="Logout"
+                onClick={() => {
+                  setShowLogoutModal(true);
+                }}
+              />
+            </Col>
+          </Row>
         </Col>
       </Row>
       <Row className={`mt-5 align-items-center justify-content-center mt-4`}>
@@ -146,6 +157,8 @@ function Todo() {
       />
 
       <LogoutModal show={showLogoutModal} setShow={setShowLogoutModal} />
+
+      <LoaderModal show={isLoading} />
     </>
   );
 }

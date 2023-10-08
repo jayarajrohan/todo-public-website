@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
 import ModalContainer from "../../ui-elements/modal-container/modal-container";
 import { showErrorToast, showSuccessToast } from "../../util/toast";
@@ -11,6 +12,7 @@ interface IProps {
 
 function TodoDeleteModal(props: IProps) {
   const { id, show, setShow, setIsTodoUpdated } = props;
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <ModalContainer
@@ -19,7 +21,9 @@ function TodoDeleteModal(props: IProps) {
       onClose={() => {
         setShow(false);
       }}
+      isLoading={isLoading}
       onConfirm={() => {
+        setIsLoading(true);
         let status: number;
 
         fetch(`${process.env.REACT_APP_API_URL}/todo/delete/${id}`, {
@@ -47,6 +51,9 @@ function TodoDeleteModal(props: IProps) {
           .catch((error) => {
             console.log(error);
             showErrorToast("Something went wrong! Please try again later");
+          })
+          .finally(() => {
+            setIsLoading(false);
           });
         setIsTodoUpdated((ps) => !ps);
       }}
