@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import AppButton from "../../ui-elements/app-button/app-button";
 import AppInput from "../../ui-elements/app-input/app-input";
 import { emailRegex, passwordRegex } from "../../util/regex";
@@ -113,6 +113,16 @@ function Login() {
           />
 
           <AppButton text="Login" type="submit" rowClassName="mt-4" />
+
+          <p className="mt-3 text-center">
+            Don't have an account?{" "}
+            <Link
+              to="/sign-up"
+              style={{ color: "#8803fc", textDecoration: "none" }}
+            >
+              Sign Up
+            </Link>
+          </p>
         </form>
       </FormLayout>
       <LoaderModal show={isLoading} />
