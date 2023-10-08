@@ -3,7 +3,6 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import AppButton from "../../ui-elements/app-button/app-button";
 import AppInput from "../../ui-elements/app-input/app-input";
-import { API_URL } from "../../util/api";
 import {
   emailRegex,
   noSpecialCharsNoWhiteSpacesAtTheStartAndAtTheEndRegex,
@@ -45,7 +44,7 @@ function SignUp() {
   const onSubmit = (data: IFormInput) => {
     let status: number;
 
-    fetch(`${API_URL}/user/signUp`, {
+    fetch(`${process.env.REACT_APP_API_URL}/user/signUp`, {
       method: "POST",
       body: JSON.stringify({
         email: data.email,
