@@ -5,6 +5,7 @@ import AppButton from "../../ui-elements/app-button/app-button";
 import AppInput from "../../ui-elements/app-input/app-input";
 import { emailRegex, passwordRegex } from "../../util/regex";
 import { showErrorToast, showSuccessToast } from "../../util/toast";
+import FormLayout from "../form-layout/form-layout";
 import LoaderModal from "../loader-modal/loader-modal";
 
 interface IFormInput {
@@ -69,50 +70,51 @@ function Login() {
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <AppInput
-          labelFor="email"
-          labelText="Email"
-          placeholder="Email"
-          error={errors.email}
-          name="email"
-          register={register("email", {
-            required: "Email is required",
-            pattern: {
-              value: emailRegex,
-              message: "Please enter a valid email",
-            },
-          })}
-          rowClassName="mt-3"
-          required
-        />
+      <FormLayout>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <AppInput
+            labelFor="email"
+            labelText="Email"
+            placeholder="Email"
+            error={errors.email}
+            name="email"
+            register={register("email", {
+              required: "Email is required",
+              pattern: {
+                value: emailRegex,
+                message: "Please enter a valid email",
+              },
+            })}
+            rowClassName="mt-3"
+            required
+          />
 
-        <AppInput
-          labelFor="password"
-          labelText="Password"
-          type="password"
-          placeholder="Password"
-          error={errors.password}
-          name="password"
-          register={register("password", {
-            required: "Password is required",
-            minLength: {
-              value: 6,
-              message: "Password must contain at least 6 characters",
-            },
-            pattern: {
-              value: passwordRegex,
-              message:
-                "Password must have 6 characters and include at least one lowercase letter, one uppercase letter, one numeric and one special character",
-            },
-          })}
-          rowClassName="mt-3"
-          required
-        />
+          <AppInput
+            labelFor="password"
+            labelText="Password"
+            type="password"
+            placeholder="Password"
+            error={errors.password}
+            name="password"
+            register={register("password", {
+              required: "Password is required",
+              minLength: {
+                value: 6,
+                message: "Password must contain at least 6 characters",
+              },
+              pattern: {
+                value: passwordRegex,
+                message:
+                  "Password must have 6 characters and include at least one lowercase letter, one uppercase letter, one numeric and one special character",
+              },
+            })}
+            rowClassName="mt-3"
+            required
+          />
 
-        <AppButton text="Login" type="submit" rowClassName="mt-4" />
-      </form>
-
+          <AppButton text="Login" type="submit" rowClassName="mt-4" />
+        </form>
+      </FormLayout>
       <LoaderModal show={isLoading} />
     </>
   );

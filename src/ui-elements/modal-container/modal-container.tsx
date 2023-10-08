@@ -60,13 +60,17 @@ const ModalContainer = (props: ModelContainerProps) => {
           <Col xs="auto">
             <AppButton
               text={
-                isLoading ? (
+                !isLoading ? (
                   confirmButtonText || "Confirm"
                 ) : (
                   <Spinner name="ball-beat" color="#fff" />
                 )
               }
-              onClick={onConfirm}
+              onClick={() => {
+                if (!isLoading && onConfirm) {
+                  onConfirm();
+                }
+              }}
             />
           </Col>
         </Row>
