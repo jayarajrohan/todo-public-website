@@ -136,7 +136,7 @@ function AddUpdateTodoModal(props: IProps) {
   return (
     <ModalContainer
       show={show}
-      title="Add Todo"
+      title={isEdit ? "Edit Todo" : "Add Todo"}
       onClose={() => {
         reset();
         onModalClose();

@@ -17,7 +17,7 @@ function LogoutModal(props: IProps) {
   return (
     <ModalContainer
       show={show}
-      title="Change Todo Status"
+      title="Logout"
       onClose={() => {
         setShow(false);
       }}
