@@ -45,12 +45,13 @@ function AddUpdateTodoModal(props: IProps) {
   });
 
   useEffect(() => {
+    reset();
     if (isEdit && todo) {
       setValue("content", todo.content);
       setValue("date", moment(todo.date).format("yyyy-MM-DD"));
       setValue("isCompleted", todo.isCompleted ? "Completed" : "Not Completed");
     }
-  }, [isEdit, todo, setValue]);
+  }, [isEdit, todo, setValue, reset]);
 
   const onSubmit = (data: IFormInput) => {
     setIsLoading(true);

@@ -104,7 +104,7 @@ function Todo() {
           .filter((todo) =>
             selected === 1 ? !todo.isCompleted : todo.isCompleted
           )
-          .map((todo) => {
+          .map((todo, index) => {
             return (
               <Col key={uuid()} xs={12} sm={10} lg={8} className="px-4 px-sm-2">
                 <TodoCard
@@ -115,7 +115,7 @@ function Todo() {
                     setTodo(todo);
                     setShowStatusEditModal(true);
                   }}
-                  className="mt-5"
+                  className={`${index === 0 ? "mt-5" : ""} mb-5`}
                   onEditClick={() => {
                     setTodo(todo);
                     setIsEdit(true);
